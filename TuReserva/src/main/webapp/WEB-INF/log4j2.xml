@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+	<Properties>		
+		<Property name="CONSOLE_LOG_PATTERN">%d{dd/MM/yyyy HH:mm:ss,SSS}{GMT-5}\t%-5level\t%c{1.}\t%m%n</Property>		
+		<Property name="APP_LOG_ROOT">D:/TEMP/logs</Property>
+	</Properties >
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
+		</Console>
+		
+		<RollingFile name="Aplicacion"
+			fileName="${sys:APP_LOG_ROOT}/Aplicacion.log"
+			filePattern="${sys:APP_LOG_ROOT}/Aplicacion-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="Aplicacion" level="info"/>
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+
+</Configuration>
